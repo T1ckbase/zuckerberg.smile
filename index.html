@@ -1,41 +1,170 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:," />
   <title>zuckerberg.smile</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Control Mark Zuckerberg's Smile Property with Pure CSS">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://t1ckbase.github.io/zuckerberg.smile/" />
+  <meta property="og:title" content="Pure CSS zuckerberg.smile">
+  <meta property="og:description" content="Control Mark Zuckerberg's Smile Property with Pure CSS">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://t1ckbase.github.io/zuckerberg.smile/">
+  <meta property="og:image" content="https://t1ckbase.github.io/zuckerberg.smile/og.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pure CSS zuckerberg.smile">
+  <meta name="twitter:description" content="Control Mark Zuckerberg's Smile Property with Pure CSS">
+  <meta name="twitter:image" content="https://t1ckbase.github.io/zuckerberg.smile/og.png">
+  <meta name="keywords"
+    content="CSS, Animation Timeline, Scroll-driven Animations, Zuckerberg, Smile, Frontend, Web Development, No JavaScript">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    @property --mood {
+      syntax: "<integer>";
+      inherits: true;
+      initial-value: 0;
+    }
 
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
+    :root {
+      timeline-scope: --mood;
+      animation: mood linear both;
+      animation-direction: reverse;
+      animation-timeline: --mood;
+      animation-range: contain;
+    }
 
-  <link rel="stylesheet" href="style.css">
+    @keyframes mood {
+      to {
+        --mood: 19;
+      }
+    }
 
-  <meta name="theme-color" content="#fafafa">
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 1rem;
+      font-size: 1rem;
+      font-family: monospace;
+    }
+
+    .unsupported {
+      display: none;
+      padding: 0.5rem;
+      background-color: #ff000090;
+    }
+
+    @supports (not (timeline-scope: --test)) or (not (animation-timeline: auto)) or (not (view-timeline-name: --test)) {
+      .unsupported {
+        display: block;
+      }
+    }
+
+    main,
+    footer {
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .value {
+      font-weight: normal;
+
+      &::after {
+        content: " = " counter(value-int) "." counter(value-dec-1) counter(value-dec-2);
+        counter-reset: value-int round(to-zero, var(--value)) value-dec-1 var(--value-digit-1) value-dec-2 var(--value-digit-2);
+        --value: calc(var(--mood) / 19);
+        --value-abs: abs(var(--value));
+        --value-integer-part-abs: round(to-zero, var(--value-abs));
+        --value-decimal-as-integer: round((var(--value-abs) - var(--value-integer-part-abs)) * 100000);
+        --value-digit-1: round(to-zero, (var(--value-decimal-as-integer)) / 10000);
+        --value-digit-2: round(to-zero, ((var(--value-decimal-as-integer) - var(--value-digit-1) * 10000)) / 1000);
+        white-space: pre-wrap;
+      }
+    }
+
+    img {
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: 0 calc(var(--mood) * -540px);
+    }
+
+    .controller {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      input[type="range"] {
+        width: 100%;
+        max-width: 256px;
+        overflow: hidden;
+        accent-color: currentColor;
+
+        &::-webkit-slider-thumb {
+          view-timeline: --mood inline;
+        }
+
+        &::-moz-slider-thumb {
+          view-timeline: --mood inline;
+        }
+
+        &:hover {
+          cursor: grab;
+        }
+
+        &:active {
+          cursor: grabbing;
+        }
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <main class="center">
-    <h1>zuckerberg.smile = <span class="value">0.0<span></h1>
-    <div class="sprite"></div>
+  <div class="unsupported">
+    Your browser doesn't support advanced CSS features.<br>
+    <strong>Zuckerberg cannot smile.</strong>
+  </div>
 
+  <main>
+    <h1 class="value">zuckerberg.smile</h1>
+    <p>
+      <picture>
+        <source srcset="./sprites.avif" type="image/avif">
+        <img src="./sprites.jpg" width="960" alt="zuckerberg">
+      </picture>
+    </p>
     <div class="controller">
-      <div class="mood mood--neutral">
-        <span class="mood__number">0.0</span>
-      </div>
-      <input type="range" min="0" max="19" value="0" class="mood__slider">
-      <div class="mood mood--happy">
-        <span class="mood__number">1.0</span>
-      </div>
+      <label for="mood">0.0</label>
+      <input type="range" min="0" max="19" value="0" id="mood">
+      <label for="mood">1.0</label>
     </div>
   </main>
 
   <footer>
-    by <a href="https://twitter.com/terkelg">@terkelg</a>
+    <small>
+      <a href="https://github.com/T1ckbase/zuckerberg.smile">Source Code</a>
+    </small>
   </footer>
-
-  <script src="./main.js"></script>
 </body>
 
 </html>
