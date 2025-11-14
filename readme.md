@@ -1,5 +1,5 @@
 # zuckerberg.smile
-> Control Mark Zuckerbergs smile property 
+> Control Mark Zuckerberg's smile property with pure CSS 
 
 Try it yourself here: https://t1ckbase.github.io/zuckerberg.smile/
 
