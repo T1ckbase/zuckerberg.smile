@@ -151,13 +151,13 @@
     <p>
       <picture>
         <source srcset="./sprites.avif" type="image/avif">
-        <img src="./sprites.jpg" alt="zuckerberg">
+        <img src="./sprites.jpg" alt="zuckerberg" decoding="async" fetchpriority="high">
       </picture>
     </p>
     <div class="controller">
-      <label for="mood">0.0</label>
-      <input type="range" min="0" max="19" value="0" id="mood">
-      <label for="mood">1.0</label>
+      <span>0.0</span>
+      <input type="range" min="0" max="19" value="0" aria-label="Control Mark Zuckerberg's mood">
+      <span>1.0</span>
     </div>
   </main>
 
