@@ -45,14 +45,13 @@
       }
     }
 
-    *,
-    *::before,
-    *::after {
+    html,
+    body {
       box-sizing: border-box;
     }
 
     body {
-      min-height: 100dvh;
+      min-block-size: 100dvh;
       display: flex;
       flex-direction: column;
       margin: 0;
@@ -99,8 +98,8 @@
     }
 
     img {
-      width: 100%;
-      max-width: 960px;
+      inline-size: 100%;
+      max-inline-size: 960px;
       aspect-ratio: 16 / 9;
       object-fit: cover;
       object-position: 0 calc(var(--mood) * -540px);
@@ -115,8 +114,8 @@
       font-weight: bold;
 
       input[type="range"] {
-        width: 100%;
-        max-width: 256px;
+        inline-size: 100%;
+        max-inline-size: 256px;
         overflow: hidden;
         accent-color: currentColor;
 
